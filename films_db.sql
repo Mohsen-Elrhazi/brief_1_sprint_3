@@ -81,3 +81,11 @@ ADD CONSTRAINT fk_MovieID FOREIGN KEY(MovieID) references movie(MovieID);
 --Ajouter la constrainte foreign key pour la colonne MovieID de la table review
 ALTER TABLE review
 ADD CONSTRAINT fk_MovieID_review FOREIGN KEY(MovieID) references movie(MovieID);
+
+-- Ajoutetr la constrainte NOT NULL pour tout les colonnes de la tables utilisateur
+ALTER TABLE utilisateur
+MODIFY COLUMN FirstName VARCHAR(100) NOT NULL,
+MODIFY COLUMN LastName VARCHAR(100) NOT NULL,
+MODIFY COLUMN Email VARCHAR(100) NOT NULL,
+MODIFY COLUMN RegistrationDate DATE NOT NULL,
+MODIFY COLUMN SubscriptionID INT NOT NULL;
