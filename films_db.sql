@@ -53,3 +53,7 @@ CREATE TABLE watchhistory(
     WatchDate DATE,
     CompletionPercentage INT
 );
+
+--Ajouter la constrainte DEFAULT 0 pour CompletionPercentage de la table watchhistory
+ALTER TABLE watchhistory
+MODIFY COLUMN CompletionPercentage INT DEFAULT 0;
