@@ -77,3 +77,7 @@ ADD CONSTRAINT fk_UserID_watchhistory FOREIGN KEY(UserID) references utilisateur
 --Ajouter la constrainte foreign key pour la colonne MovieID de la table watchhistory
 ALTER TABLE watchhistory
 ADD CONSTRAINT fk_MovieID FOREIGN KEY(MovieID) references movie(MovieID);
+
+--Ajouter la constrainte foreign key pour la colonne MovieID de la table review
+ALTER TABLE review
+ADD CONSTRAINT fk_MovieID_review FOREIGN KEY(MovieID) references movie(MovieID);
