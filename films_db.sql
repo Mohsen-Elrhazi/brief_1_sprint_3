@@ -57,3 +57,7 @@ CREATE TABLE watchhistory(
 --Ajouter la constrainte DEFAULT 0 pour CompletionPercentage de la table watchhistory
 ALTER TABLE watchhistory
 MODIFY COLUMN CompletionPercentage INT DEFAULT 0;
+
+--Ajouter la constrainte NULL pour la colonne ReviewText de la table review
+ALTER TABLE review
+MODIFY COLUMN ReviewText Text NULL;
