@@ -15,3 +15,12 @@ CREATE TABLE review(
     ReviewText TEXT,
     ReviewDate DATE
 );
+
+CREATE TABLE movie(
+    MovieID INT PRIMARY KEY AUTO_INCREMENT,
+    Title VARCHAR(255),
+    Genre VARCHAR(100),
+    ReleaseYear INT,
+    Duration INT,
+    Rating VARCHAR(10)
+);
