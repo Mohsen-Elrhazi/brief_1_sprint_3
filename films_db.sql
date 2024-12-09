@@ -24,3 +24,12 @@ CREATE TABLE movie(
     Duration INT,
     Rating VARCHAR(10)
 );
+
+CREATE TABLE utilisateur(
+    UserID INT PRIMARY KEY AUTO_INCREMENT,
+    FirstName VARCHAR(100),
+    LastName VARCHAR(100),
+    Email VARCHAR(100) UNIQUE,
+    RegistrationDate DATE,
+    SubscriptionID INT
+);
