@@ -1,91 +1,74 @@
+-- name: Mohsen Elrhazi
+ -- gmail: mohsenelrhazi3@gmail.com
 
- --name: Mohsen Elrhazi
- --gmail: mohsenelrhazi3@gmail.com
-
- --Créeaton de la base de données films_db
+ -- Créeaton de la base de données films_db
 CREATE DATABASE films_db;
 
 -- Utilisation de la base de données
 USE films_db;
 
---Créeation de la table subscription
+-- Créeation de la table subscription
 CREATE TABLE subscription(
 SubscriptionID INT PRIMARY KEY AUTO_INCREMENT,
-SubscriptionType VARCHAR(50) CHECK (SubscriptionType IN ('Basic','Standard','Premium')),
-MonthlyFee DECIMAL(10,2)
+SubscriptionType VARCHAR(50) NOT NULL CHECK (SubscriptionType IN ('Basic','Standard','Premium')),
+MonthlyFee DECIMAL(10,2) NOT NULL
 );
 
---Créeation de la table review
+-- Créeation de la table review
 CREATE TABLE review(
     ReviewID INT PRIMARY KEY AUTO_INCREMENT,
-    UserID INT,
-    MovieID INT,
-    Rating INT,
-    ReviewText TEXT,
-    ReviewDate DATE
+    UserID INT NOT NULL,
+    MovieID INT NOT NULL,
+    Rating INT NOT NULL,
+    ReviewText TEXT NULL,
+    ReviewDate DATE NOT NULL
 );
 
---Créeation de la table movie
+-- Créeation de la table movie
 CREATE TABLE movie(
     MovieID INT PRIMARY KEY AUTO_INCREMENT,
-    Title VARCHAR(255),
-    Genre VARCHAR(100),
-    ReleaseYear INT,
-    Duration INT,
-    Rating VARCHAR(10)
+    Title VARCHAR(255)  NOT NULL,
+    Genre VARCHAR(100)  NOT NULL,
+    ReleaseYear INT  NOT NULL,
+    Duration INT  NOT NULL,
+    Rating VARCHAR(10) NOT NULL
 );
 
---Créeation de la table utilisateur
+-- Créeation de la table utilisateur
 CREATE TABLE utilisateur(
     UserID INT PRIMARY KEY AUTO_INCREMENT,
-    FirstName VARCHAR(100),
-    LastName VARCHAR(100),
-    Email VARCHAR(100) UNIQUE,
-    RegistrationDate DATE,
-    SubscriptionID INT
+    FirstName VARCHAR(100)  NOT NULL,
+    LastName VARCHAR(100)  NOT NULL,
+    Email VARCHAR(100) NOT NULL UNIQUE,
+    RegistrationDate DATE NOT NULL,
+    SubscriptionID INT  NOT NULL
 );
 
---Créeation de la table watchhistory
+-- Créeation de la table watchhistory
 CREATE TABLE watchhistory(
     WatchHistoryID INT PRIMARY KEY AUTO_INCREMENT,
-    UserID INT,
-    MovieID INT,
-    WatchDate DATE,
-    CompletionPercentage INT
+    UserID INT NOT NULL,
+    MovieID INT NOT NULL,
+    WatchDate DATE NOT NULL,
+    CompletionPercentage INT NOT NULL DEFAULT 0
 );
 
---Ajouter la constrainte DEFAULT 0 pour CompletionPercentage de la table watchhistory
-ALTER TABLE watchhistory
-MODIFY COLUMN CompletionPercentage INT DEFAULT 0;
-
---Ajouter la constrainte NULL pour la colonne ReviewText de la table review
-ALTER TABLE review
-MODIFY COLUMN ReviewText Text NULL;
-
---Ajouter la constrainte foreign key pour la colonne SubscriptionID de la table utilisateur
+-- Ajouter la constrainte foreign key pour la colonne SubscriptionID de la table utilisateur
 ALTER TABLE utilisateur 
 ADD CONSTRAINT fk_SubscriptionID FOREIGN KEY(SubscriptionID) references subscription(subscriptionID);
 
---Ajouter la constrainte foreign key pour la colonne UserID de la table review
+-- Ajouter la constrainte foreign key pour la colonne UserID de la table review
 ALTER TABLE review
 ADD CONSTRAINT fk_UserID FOREIGN KEY(UserID) references utilisateur(UserID);
 
---Ajouter la constrainte foreign key pour la colonne UserID de la table watchhistory
+-- Ajouter la constrainte foreign key pour la colonne UserID de la table watchhistory
 ALTER TABLE watchhistory
 ADD CONSTRAINT fk_UserID_watchhistory FOREIGN KEY(UserID) references utilisateur(UserID);
 
---Ajouter la constrainte foreign key pour la colonne MovieID de la table watchhistory
+-- Ajouter la constrainte foreign key pour la colonne MovieID de la table watchhistory
 ALTER TABLE watchhistory
 ADD CONSTRAINT fk_MovieID FOREIGN KEY(MovieID) references movie(MovieID);
 
---Ajouter la constrainte foreign key pour la colonne MovieID de la table review
+-- Ajouter la constrainte foreign key pour la colonne MovieID de la table review
 ALTER TABLE review
 ADD CONSTRAINT fk_MovieID_review FOREIGN KEY(MovieID) references movie(MovieID);
-
--- Ajoutetr la constrainte NOT NULL pour tout les colonnes de la tables utilisateur
-ALTER TABLE utilisateur
-MODIFY COLUMN FirstName VARCHAR(100) NOT NULL,
-MODIFY COLUMN LastName VARCHAR(100) NOT NULL,
-MODIFY COLUMN Email VARCHAR(100) NOT NULL,
-MODIFY COLUMN RegistrationDate DATE NOT NULL,
-MODIFY COLUMN SubscriptionID INT NOT NULL;
