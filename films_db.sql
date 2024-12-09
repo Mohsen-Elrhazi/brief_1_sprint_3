@@ -69,3 +69,11 @@ ADD CONSTRAINT fk_SubscriptionID FOREIGN KEY(SubscriptionID) references subscrip
 --Ajouter la constrainte foreign key pour la colonne UserID de la table review
 ALTER TABLE review
 ADD CONSTRAINT fk_UserID FOREIGN KEY(UserID) references utilisateur(UserID);
+
+--Ajouter la constrainte foreign key pour la colonne UserID de la table watchhistory
+ALTER TABLE watchhistory
+ADD CONSTRAINT fk_UserID_watchhistory FOREIGN KEY(UserID) references utilisateur(UserID);
+
+--Ajouter la constrainte foreign key pour la colonne MovieID de la table watchhistory
+ALTER TABLE watchhistory
+ADD CONSTRAINT fk_MovieID FOREIGN KEY(MovieID) references movie(MovieID);
