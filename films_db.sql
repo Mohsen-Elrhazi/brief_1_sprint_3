@@ -65,3 +65,7 @@ MODIFY COLUMN ReviewText Text NULL;
 --Ajouter la constrainte foreign key pour la colonne SubscriptionID de la table utilisateur
 ALTER TABLE utilisateur 
 ADD CONSTRAINT fk_SubscriptionID FOREIGN KEY(SubscriptionID) references subscription(subscriptionID);
+
+--Ajouter la constrainte foreign key pour la colonne UserID de la table review
+ALTER TABLE review
+ADD CONSTRAINT fk_UserID FOREIGN KEY(UserID) references utilisateur(UserID);
