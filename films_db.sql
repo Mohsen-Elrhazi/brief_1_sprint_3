@@ -92,4 +92,12 @@ WHERE s.SubscriptionType = 'Basic';
 SELECT u.UserID, u.FirstName, u.LastName, u.Email,u.RegistrationDate,s.SubscriptionType
 FROM utilisateur AS u
 JOIN subscription AS s
- ON u.SubscriptionID = s.SubscriptionID;
+ON u.SubscriptionID = s.SubscriptionID;
+
+-- 5.Filtrer les visionnages : Trouver tous les utilisateurs ayant terminé de regarder un film.
+SELECT u.UserID, u.FirstName, u.LastName, m.MovieID, m.Title, m.Genre, m.ReleaseYear, wh.WatchDate, wh.CompletionPercentage
+FROM utilisateur AS u
+JOIN watchhistory AS wh ON u.UserID = wh.UserID
+JOIN movie AS m ON wh.MovieID = m.MovieID
+WHERE wh.CompletionPercentage =100;
+
