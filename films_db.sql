@@ -72,3 +72,7 @@ ADD CONSTRAINT fk_MovieID FOREIGN KEY(MovieID) references movie(MovieID);
 -- Ajouter la constrainte foreign key pour la colonne MovieID de la table review
 ALTER TABLE review
 ADD CONSTRAINT fk_MovieID_review FOREIGN KEY(MovieID) references movie(MovieID);
+
+-- 1.Insérer un film : Ajouter un nouveau film intitulé Data Science Adventures dans le genre "Documentary"
+INSERT INTO movie (Title, Genre, ReleaseYear, Duration, Rating) 
+VALUES ('Data Science Adventures', 'Documentary', 2024, 120, '8.9');
