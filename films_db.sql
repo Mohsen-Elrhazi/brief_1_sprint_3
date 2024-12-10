@@ -136,3 +136,24 @@ FROM movie
 GROUP BY Title, Genre, ReleaseYear
 HAVING count(*) > 1
 
+
+-- 11.CTE (Bonus): Lister les 3 films les mieux notés grâce à une expression de table commune.
+CREATE VIEW trois_films_notés AS
+SELECT M.MovieID, m.Title, r.Rating
+FROM movie AS m
+JOIN review AS r
+ON m.MovieID=r.MovieID
+ORDER BY r.Rating DESC
+LIMIT 3;
+
+-- 11. 2eme methode 
+WITH trois_films_notés AS (
+    SELECT M.MovieID, M.Title, R.Rating
+    FROM movie AS M
+    JOIN review AS R
+    ON M.MovieID = R.MovieID
+    ORDER BY R.Rating DESC
+)
+SELECT *
+FROM trois_films_notés
+LIMIT 3;
