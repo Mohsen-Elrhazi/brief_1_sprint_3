@@ -129,3 +129,10 @@ ON m.MovieID=r.MovieID
 GROUP BY m.MovieID, m.Title
 HAVING AVG(r.Rating) > 4
 --ou HAVING  moyen_rating >4
+
+-- 10.Self-Join (Bonus): Trouver des paires de films du même genre sortis la même année.
+SELECT Title, Genre, ReleaseYear, count(*) AS nbr_occurence
+FROM movie 
+GROUP BY Title, Genre, ReleaseYear
+HAVING count(*) > 1
+
