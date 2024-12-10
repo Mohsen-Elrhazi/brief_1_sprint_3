@@ -77,14 +77,19 @@ ADD CONSTRAINT fk_MovieID_review FOREIGN KEY(MovieID) references movie(MovieID);
 INSERT INTO movie (Title, Genre, ReleaseYear, Duration, Rating) 
 VALUES ('Data Science Adventures', 'Documentary', 2024, 120, '8.9');
 
---2.Rechercher des films : Lister tous les films du genre "Comedy" sortis après 2020
+-- 2.Rechercher des films : Lister tous les films du genre "Comedy" sortis après 2020
 SELECT * FROM movie
 where Genre='Comedy' AND ReleaseYear > 2020;
 
---Mise à jour des abonnements : Passer tous les utilisateurs de "Basic" à "Premium"..
+-- 3.Mise à jour des abonnements : Passer tous les utilisateurs de "Basic" à "Premium"
 UPDATE utilisateur AS u
 JOIN subscription AS s 
 ON u.SubscriptionID = s.SubscriptionID
 SET s.SubscriptionType = 'Premium'
 WHERE s.SubscriptionType = 'Basic';
 
+-- 4.Afficher les abonnements : Joindre les utilisateurs à leurs types d'abonnements.
+SELECT u.UserID, u.FirstName, u.LastName, u.Email,u.RegistrationDate,s.SubscriptionType
+FROM utilisateur AS u
+JOIN subscription AS s
+ ON u.SubscriptionID = s.SubscriptionID;
