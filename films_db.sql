@@ -120,3 +120,12 @@ FROM utilisateur AS u
 JOIN subscription AS s
 ON u.SubscriptionID=s.subscriptionID
 GROUP BY s.SubscriptionType
+
+-- 9.Sous-requête (Bonus): Trouver les films ayant une note moyenne supérieure à 4.
+SELECT m.MovieID, m.Title, AVG(r.Rating) AS moyen_rating
+FROM movie AS m
+JOIN review AS r
+ON m.MovieID=r.MovieID
+GROUP BY m.MovieID, m.Title
+HAVING AVG(r.Rating) > 4
+--ou HAVING  moyen_rating >4
