@@ -101,3 +101,8 @@ JOIN watchhistory AS wh ON u.UserID = wh.UserID
 JOIN movie AS m ON wh.MovieID = m.MovieID
 WHERE wh.CompletionPercentage =100;
 
+-- 6.Trier et limiter : Afficher les 5 films les plus longs, triés par durée.
+SELECT Title, Genre, Duration
+FROM movie 
+ORDER BY Duration DESC
+LIMIT 5
