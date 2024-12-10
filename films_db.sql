@@ -113,3 +113,10 @@ FROM movie AS m
 JOIN watchhistory AS wh
 ON m.MovieID=wh.MovieID
 GROUP BY m.MovieID, m.Title
+
+-- 8.Group By : Grouper les utilisateurs par type d’abonnement et compter le nombre total d’utilisateurs par groupe.
+SELECT s.SubscriptionType, count(u.UserID) as nbr_utilisateurs
+FROM utilisateur AS u
+JOIN subscription AS s
+ON u.SubscriptionID=s.subscriptionID
+GROUP BY s.SubscriptionType
