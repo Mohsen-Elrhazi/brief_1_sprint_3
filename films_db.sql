@@ -173,10 +173,11 @@ CREATE TABLE alerts(
     AlertID INT PRIMARY KEY AUTO_INCREMENT,
     Message VARCHAR(255) NOT NULL,
     MovieID int NOT NULL,
-    DateAlert DATE NOT NULL,
+    DateAlert DATETIME NOT NULL,
     FOREIGN KEY(MovieID) REFERENCES movie(MovieID)
 );
 
+DELIMITER //
 CREATE TRIGGER alert_faible_rating
 AFTER INSERT
 ON review
@@ -187,4 +188,5 @@ THEN
 INSERT INTO alerts(Message, MovieID, DateAlert)
 VALUES('film obtient une note moyenne inférieure à 3', NEW.MovieID, NOW());
 END IF;
-END;
+END//
+DELIMITER ;
