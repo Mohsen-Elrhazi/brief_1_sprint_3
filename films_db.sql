@@ -130,11 +130,19 @@ GROUP BY m.MovieID, m.Title
 HAVING AVG(r.Rating) > 4
 --ou HAVING  moyen_rating >4
 
--- 10.Self-Join (Bonus): Trouver des paires de films du même genre sortis la même année.
-SELECT Title, Genre, ReleaseYear, count(*) AS nbr_occurence
-FROM movie 
-GROUP BY Title, Genre, ReleaseYear
-HAVING count(*) > 1
+-- 2eme methode sous-requete
+SELECT m.MovieID, m.Title, (SELECT AVG(Rating) FROM review AS r where m.MovieID = r.MovieID ) AS moyen_rating
+FROM movie AS m
+GROUP BY m.MovieID, m.Title
+HAVING moyen_rating > 4;
+
+
+-- 10.& (Bonus): Trouver des paires de films du même genre sortis la même année.
+SELECT A.MovieID, B.MovieID,A.Title AS movie_1, B.Title AS movie_2, A.Genre, A.ReleaseYear
+FROM movie AS A, movie AS B
+WHERE A.MovieID < B.MovieID
+AND A.Genre=B.Genre
+AND A.ReleaseYear=B.ReleaseYear;
 
 
 -- 11.CTE (Bonus): Lister les 3 films les mieux notés grâce à une expression de table commune.
@@ -157,3 +165,26 @@ WITH trois_films_notés AS (
 SELECT *
 FROM trois_films_notés
 LIMIT 3;
+
+-- 12.Trigger (Bonus): Créer un trigger qui enregistre une alerte lorsqu’un film obtient une note moyenne inférieure à 3.
+-- DROP TRIGGER alert_faible_rating;
+
+CREATE TABLE alerts(
+    AlertID INT PRIMARY KEY AUTO_INCREMENT,
+    Message VARCHAR(255) NOT NULL,
+    MovieID int NOT NULL,
+    DateAlert DATE NOT NULL,
+    FOREIGN KEY(MovieID) REFERENCES movie(MovieID)
+);
+
+CREATE TRIGGER alert_faible_rating
+AFTER INSERT
+ON review
+FOR EACH ROW
+BEGIN
+IF((SELECT AVG(Rating) FROM review WHERE MovieID = NEW.MovieID) < 3) 
+THEN
+INSERT INTO alerts(Message, MovieID, DateAlert)
+VALUES('film obtient une note moyenne inférieure à 3', NEW.MovieID, NOW());
+END IF;
+END;
